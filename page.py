@@ -7,6 +7,7 @@ from lxml import etree
 import HTMLParser
 import time
 import os
+import random
 
 ROOT_DIR = os.getcwd()
 
@@ -69,7 +70,7 @@ class Pager(object):
         dr = re.compile(r'<[^>]+>',re.S)
         parser = HTMLParser.HTMLParser()
 
-        time.sleep(2)
+        time.sleep(random.uniform(0, 4))
         response = self.br.open(url)
         body = response.read()
         html_tree = etree.HTML(body)
@@ -81,21 +82,21 @@ class Pager(object):
         print url
         print shop_titles
         title = shop_titles[0].text
-        result["title"] = title
+        result["title"] = title.encode("utf-8")
 
         # 匹配地址
         shop_address_xpath = u"//div[@class='brief-info']/div[@class='address']|//div[@class='shop-info']/div[@class='shop-addr']/span|//div[@itemprop='street-address']"
         shop_addresses = html_tree.xpath(shop_address_xpath)
         address_str = etree.tostring(shop_addresses[0])
         address_str = dr.sub('', address_str)
-        result["address"] = parser.unescape(address_str)
+        result["address"] = parser.unescape(address_str).encode("utf-8")
 
         # 匹配电话
         shop_phone_xpath = u"//div[@class='book']/div[@class='phone']/span|//div[@class='shop-info']/div[@class='shopinfor']/p/span[1]|//span[@itemprop='tel']"
         shop_phones = html_tree.xpath(shop_phone_xpath)
         if shop_phones:
             shop_phone = shop_phones[0].text
-            result["phone"] = shop_phone
+            result["phone"] = shop_phone.encode("utf-8")
 
         # 匹配简介
         shop_desc_xpath = u"//div[@class='mod-wrap']/div[@id='info']/ul/li[2]|//div[@class='con J_showWarp']/div[@class='block_all']/div[2]/span"
@@ -103,9 +104,7 @@ class Pager(object):
         if shop_descs:
             shop_desc_str = etree.tostring(shop_descs[0])
             shop_desc_str = dr.sub('', shop_desc_str)
-            result["description"] = parser.unescape(shop_desc_str)
+            result["description"] = parser.unescape(shop_desc_str).encode("utf-8")
 
         return result
-
-
 
