@@ -20,6 +20,7 @@ class Pager(object):
         result["items"] = []
 
         print url
+        self.br.implicitly_wait(30)
         self.br.get(url)
         print "1111"
         #self.br.implicitly_wait(3)
