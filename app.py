@@ -7,6 +7,8 @@ import types
 import xlrd
 import xlwt as ExcelWrite
 import time
+import urllib2
+import urllib
 
 print settings.dianping_url_map
 
@@ -15,6 +17,22 @@ def print_item_info(item_info):
     print "phone:      %s"% item_info["phone"]
     print "address:    %s"% item_info["address"]
     print "description %s"% item_info["description"]
+
+def save_to_server(item_info, category, item_url, list_url, crawler):
+    data = {}
+    data["name"] = item_info["title"]
+    data["phone"] = item_info["phone"]
+    data["adress"] = item_info["address"]
+    data["description"] = item_info["description"]
+    data["category"] = category
+    data["item_url"] = item_url
+    data["list_url"] = list_url
+    data["crawler"] = crawler
+    url = "http://localhost:8882/index.php?r=api/site"
+    post_data = urllib.urlencode(data)
+    req = urllib2.urlopen(url, post_data)
+    return req.read()
+
 
 shop_info = []
 
@@ -36,6 +54,7 @@ for item in result["items"]:
         item_info = dianping_pager.get_item_info(item)
     shop_info.append(item_info)
     print_item_info(item_info)
+    save_to_server(item_info, "waiyu", item, settings.dianping_url_map['waiyu'], "crawler01")
 
     sheet.write(i, 0, item_info["title"].decode("utf-8"))
     sheet.write(i, 1, item_info["phone"].decode("utf-8"))
@@ -50,6 +69,7 @@ if i/15*15 == i:
 
 while result["next_page"] != "":
     #dianping_pager = page.Pager()
+    current_page_url = result["next_page"]
     try:
         result = dianping_pager.list_page_links(result["next_page"])
     except Exception,e:
@@ -63,6 +83,8 @@ while result["next_page"] != "":
             item_info = dianping_pager.get_item_info(item)
         shop_info.append(item_info)
         print_item_info(item_info)
+        save_to_server(item_info, "waiyu", item, current_page_url, "crawler01")
+
         sheet.write(i, 0, item_info["title"].decode("utf-8"))
         sheet.write(i, 1, item_info["phone"].decode("utf-8"))
         sheet.write(i, 2, item_info["address"].decode("utf-8"))
