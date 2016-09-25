@@ -7,3 +7,5 @@ _book/
 *.edx
 .DS_Store
 *.pyc
+doc/*
+settings.py
