@@ -22,7 +22,7 @@ def save_item_to_server(item_info, category, item_url, list_url, crawler, item_t
     data["list_url"] = list_url
     data["crawler"] = crawler
     data["item_tasks_id"] = item_tasks_id
-    url = "http://localhost:8882/index.php?r=api/site"
+    url = "%s/index.php?r=api/site" % settings.server_url
     post_data = urllib.urlencode(data)
     print post_data
     req = urllib2.urlopen(url, post_data)
@@ -39,7 +39,7 @@ def save_it_to_server(page_url, item_url, tasks_id, page, crawler):
     data["page_url"] = page_url
     data["page"] = page
     data["crawler"] = crawler
-    url = "http://localhost:8882/index.php?r=api/site/addit"
+    url = "%s/index.php?r=api/site/addit" % settings.server_url
     post_data = urllib.urlencode(data)
     print post_data
     req = urllib2.urlopen(url, post_data)

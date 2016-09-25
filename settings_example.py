@@ -1,6 +1,9 @@
 #!/usr/bin/env python
 #coding:utf-8
 
+# 服务器地址
+server_url = "http://localhost:8882"
+
 # 机器名称
 crawler = "crawler01"
 
