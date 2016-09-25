@@ -9,3 +9,4 @@ _book/
 *.pyc
 doc/*
 settings.py
+geckodriver.log
