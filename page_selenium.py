@@ -37,7 +37,7 @@ class Pager(object):
         # 初始化浏览器
         # 设置浏览器代理，讲非dianping.com的其它请求代理到本地，禁止访问
         myweb="127.0.0.1"
-        myport=80
+        myport=83250
 
         profile=webdriver.FirefoxProfile()
         profile.set_preference("network.proxy.type", 1)
@@ -49,12 +49,20 @@ class Pager(object):
         br.maximize_window()
         self.br = br
         self.base_url = "http://www.dianping.com"
+        self.is_closed = False
+
+    def close(self):
+        if self.is_closed == False:
+            self.br.close()
+            self.is_closed = True
 
     # 获取下一页的地址，以及当前页所有的商铺链接
     def list_page_links(self, url):
         result = {}
         result["next_page"] = ""
+        result["page"] = 0
         result["items"] = []
+        result["rs"] = "1"
 
         print url
         self.br.implicitly_wait(30)
@@ -70,12 +78,21 @@ class Pager(object):
             #当页面加载时间超过设
 
         cur_page = self.br.find_elements_by_xpath("//div[@class='page']/a[@class='cur']")
-        cur_page_num = int(cur_page[0].text)
+        try:
+            cur_page_num = int(cur_page[0].text)
+        except Exception, e:
+            result["rs"] = "-1"
+            return result
+        result["page"] = cur_page_num
         if cur_page_num < 50:
             next_page_num = cur_page_num + 1
             # 下一页的地址
             next_page_links = self.br.find_elements_by_xpath("//div[@class='page']/a[@data-ga-page='%d']"%next_page_num)
-            next_page_url = next_page_links[0].get_attribute("href")
+            try:
+                next_page_url = next_page_links[0].get_attribute("href")
+            except Exception, e:
+                result["rs"] = "-2"
+                return result
             result["next_page"] = next_page_url
             print next_page_url
             # 商铺链接
@@ -85,6 +102,7 @@ class Pager(object):
                 result["items"].append(shop_link.get_attribute("href"))
                 print shop_link.get_attribute("href")
         else:
+            result["rs"] = "-2"
             print "================>最后一页"
         return result
 

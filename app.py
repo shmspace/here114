@@ -31,16 +31,25 @@ def save_to_server(item_info, category, item_url, list_url, crawler):
     url = "http://localhost:8882/index.php?r=api/site"
     post_data = urllib.urlencode(data)
     req = urllib2.urlopen(url, post_data)
+    print "数据发送服务器保存成功......"
     return req.read()
+
+def add_data_to_excel(sheet, i, item_info, item):
+    sheet.write(i, 0, item_info["title"].decode("utf-8"))
+    sheet.write(i, 1, item_info["phone"].decode("utf-8"))
+    sheet.write(i, 2, item_info["address"].decode("utf-8"))
+    sheet.write(i, 3, item_info["description"].decode("utf-8"))
+    sheet.write(i, 4, item)
+
 
 
 shop_info = []
 
 # 保存excel
-output_xls_file = "/Users/yaoyilin/dev/python/here114/doc/item_info_waiyu.xls"
-xls = ExcelWrite.Workbook()
-sheet = xls.add_sheet("Sheet1")
-i = 0
+if settings.is_save_file:
+    xls = ExcelWrite.Workbook()
+    sheet = xls.add_sheet("Sheet1")
+    i = 0
 
 dianping_pager = page.Pager()
 result = dianping_pager.list_page_links(settings.dianping_url_map['waiyu'])
@@ -55,16 +64,12 @@ for item in result["items"]:
     shop_info.append(item_info)
     print_item_info(item_info)
     save_to_server(item_info, "waiyu", item, settings.dianping_url_map['waiyu'], "crawler01")
-
-    sheet.write(i, 0, item_info["title"].decode("utf-8"))
-    sheet.write(i, 1, item_info["phone"].decode("utf-8"))
-    sheet.write(i, 2, item_info["address"].decode("utf-8"))
-    sheet.write(i, 3, item_info["description"].decode("utf-8"))
-    sheet.write(i, 4, item)
-    i = i + 1
-if i/15*15 == i:
+    if settings.is_save_file:
+        add_data_to_excel(sheet, i, item_info, item)
+        i = i + 1
+if settings.is_save_file and i/15*15 == i:
     print "开始保存..."
-    xls.save(output_xls_file)
+    xls.save(settings.output_xls_file)
     print "保存成功..."
 
 while result["next_page"] != "":
@@ -85,14 +90,14 @@ while result["next_page"] != "":
         print_item_info(item_info)
         save_to_server(item_info, "waiyu", item, current_page_url, "crawler01")
 
-        sheet.write(i, 0, item_info["title"].decode("utf-8"))
-        sheet.write(i, 1, item_info["phone"].decode("utf-8"))
-        sheet.write(i, 2, item_info["address"].decode("utf-8"))
-        sheet.write(i, 3, item_info["description"].decode("utf-8"))
-        sheet.write(i, 4, item)
-        i = i + 1
-    if i/15*15 == i:
+        if settings.is_save_file:
+            add_data_to_excel(sheet, i, item_info, item)
+            i = i + 1
+
+    if settings.is_save_file and i/15*15 == i:
         print "开始保存..."
-        xls.save(output_xls_file)
+        xls.save(settings.output_xls_file)
         print "保存成功..."
-xls.save(output_xls_file)
+
+if settings.is_save_file:
+    xls.save(output_xls_file)
