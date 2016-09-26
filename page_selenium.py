@@ -34,6 +34,9 @@ page.get_item_info(page_list["items"][0])
 """
 class Pager(object):
     def __init__(self):
+        self.init_br()
+
+    def init_br(self):
         # 初始化浏览器
         # 设置浏览器代理，讲非dianping.com的其它请求代理到本地，禁止访问
         myweb="127.0.0.1"
@@ -50,6 +53,8 @@ class Pager(object):
         self.br = br
         self.base_url = "http://www.dianping.com"
         self.is_closed = False
+        self.br.implicitly_wait(30)
+        self.br.set_page_load_timeout(10)
 
     def close(self):
         if self.is_closed == False:
@@ -65,9 +70,6 @@ class Pager(object):
         result["rs"] = "1"
 
         print url
-        self.br.implicitly_wait(30)
-
-        self.br.set_page_load_timeout(10)
         try:
             print "开始加载..."
             self.br.get(url)
@@ -107,7 +109,7 @@ class Pager(object):
         return result
 
     # 获取商铺详情页信息
-    def get_item_info(self, url):
+    def get_item_info(self, url, item_attr):
         #url = "http://www.dianping.com/shop/65997732"
         print url
 
@@ -151,7 +153,7 @@ class Pager(object):
         print result["address"]
 
         # 匹配电话
-        shop_phone_xpath = u"//div[@class='book']/div[@class='phone']/span|//div[@class='shop-info']/div[@class='shopinfor']/p/span[1]|//span[@itemprop='tel']"
+        shop_phone_xpath = u"//div[@id='basic-info']/p[1]|//div[@class='book']/div[@class='phone']/span|//div[@class='shop-info']/div[@class='shopinfor']/p/span[1]|//span[@itemprop='tel']"
         print "开始匹配电话..."
         shop_phones = self.br.find_elements_by_xpath(shop_phone_xpath)
         print "匹配电话完成..."
@@ -161,7 +163,7 @@ class Pager(object):
             print result["phone"]
 
         # 匹配简介
-        if result["phone"]:
+        if result["phone"] and item_attr[3] == 1:
             shop_desc_xpath = u"//div[@class='mod-wrap']/div[@id='info']/ul/li[2]|//div[@class='con J_showWarp']/div[@class='block_all']/div[2]/span"
             print "开始匹配简介..."
             shop_descs = self.br.find_elements_by_xpath(shop_desc_xpath)
@@ -174,3 +176,65 @@ class Pager(object):
         print "全部完成..."
 
         return result
+
+    # 初始化当前分类url参数
+    def init_category(self, page_info):
+        self.url_base = page_info["url_base"]
+        self.url_cat = page_info["url_cat"]
+        self.url_sub_cat = page_info["url_sub_cat"]
+        self.url_price = page_info["url_price"]
+        self.min_price = self.url_price[0]
+        self.max_price = self.url_price[1]
+        self.true_max_price = self.url_price[1]
+        self.price_key = 0
+
+    # 获取当前分类合适的url
+    def get_category_url(self):
+        return "%s%s%sx%dy%d" % (self.url_base, self.url_cat, self.url_sub_cat, self.min_price, self.max_price)
+
+    # 核对当前url是否超出50页
+    def check_category_url(self):
+        url = self.get_category_url()
+        print url
+        if self.max_price == self.min_price:
+            return url
+
+        for i in range(10):
+            try:
+                print "开始加载..."
+                self.br.get(url)
+                print "加载完成..."
+                break
+            except Exception,e:
+                print 'time out after 10 seconds when loading page'
+                self.br.execute_script('window.stop()')
+                time.sleep(2)
+                #当页面加载时间超过设
+
+        page_list = self.br.find_elements_by_xpath("//div[@class='page']/a")
+        if len(page_list) == 0:
+            return url
+        else:
+            max_page = int(page_list[-2].text)
+            if max_page < 50:
+                return url
+            else:
+                self.max_price = ((self.max_price - self.min_price) / 2) + self.min_price
+                return self.check_category_url()
+
+    def check_next_category_url(self):
+        if self.max_price == self.true_max_price:
+            self.price_key = self.price_key + 1
+            if self.price_key < len(self.url_price):
+                self.true_max_price = self.url_price[self.price_key]
+            elif self.price_key == len(self.url_price):
+                self.true_max_price = 99999
+            else:
+                return -1
+        self.min_price = self.max_price
+        self.max_price = self.true_max_price
+        return self.check_category_url()
+
+
+
+

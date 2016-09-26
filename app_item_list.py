@@ -53,9 +53,10 @@ def save_shop_to_server(item_info):
     pass
 
 page_info = settings.task_for_crawler[settings.crawler][0]
-page_url = page_info["url"]
-#page_url = settings.dianping_url_map['waiyu']
 dianping_pager = page.Pager()
+dianping_pager.init_category(page_info)
+page_url = dianping_pager.check_category_url()
+
 while 1:
     print page_url
     result = dianping_pager.list_page_links(page_url)
@@ -63,22 +64,24 @@ while 1:
         print "打开页面失败，暂停抓取5分钟..."
         dianping_pager.close()
         time.sleep(1)
-        dianping_pager = page.Pager()
+        dianping_pager.init_br()
         for i in range(1, 20):
             time.sleep(1)
             print "打开页面失败，暂停抓取5分钟...%d"%(20 - i)
         continue
     elif result["rs"] == "-2":
-        print "本类目抓取完成..."
-        dianping_pager.close()
-        time.sleep(1)
-        dianping_pager = page.Pager()
-        break
+        print "本价目抓取完成..."
+        page_url = dianping_pager.check_next_category_url()
+        if page_url == -1:
+            print "all tasks finished .........."
+            break
+        else:
+            continue
 
     for item in result["items"]:
         rs = save_it_to_server(page_url, item, -1, result["page"], settings.crawler)
         if rs["item_status"] == 0:
-            item_info = dianping_pager.get_item_info(item)
+            item_info = dianping_pager.get_item_info(item, page_info["item_attr"])
             irs = save_item_to_server(item_info, page_info["name"], item, page_url, settings.crawler, rs["items_id"])
             print irs
 
@@ -87,7 +90,7 @@ while 1:
     else:
         dianping_pager.close()
         time.sleep(1)
-        dianping_pager = page.Pager()
+        dianping_pager.init_br()
 
 
 
