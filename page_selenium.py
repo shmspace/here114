@@ -123,7 +123,7 @@ class Pager(object):
         dr = re.compile(r'<[^>]+>',re.S)
         parser = HTMLParser.HTMLParser()
 
-        time.sleep(random.uniform(0, 2))
+        time.sleep(random.uniform(0, 5))
 
         self.br.set_page_load_timeout(10)
         try:

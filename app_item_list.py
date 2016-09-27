@@ -67,7 +67,7 @@ while 1:
         dianping_pager.init_br()
         for i in range(1, 20):
             time.sleep(1)
-            print "打开页面失败，暂停抓取5分钟...%d"%(20 - i)
+            print "打开页面失败，暂停抓取20秒...%d"%(20 - i)
         continue
     elif result["rs"] == "-2":
         print "本价目抓取完成..."
@@ -81,7 +81,14 @@ while 1:
     for item in result["items"]:
         rs = save_it_to_server(page_url, item, -1, result["page"], settings.crawler)
         if rs["item_status"] == 0:
-            item_info = dianping_pager.get_item_info(item, page_info["item_attr"])
+            try:
+                item_info = dianping_pager.get_item_info(item, page_info["item_attr"])
+            except Exception, e:
+                print e
+                for i in range(1, 180):
+                    time.sleep(10)
+                    print "打开页面失败，暂停抓取1800秒...%d"%(180 - i)
+                continue
             irs = save_item_to_server(item_info, page_info["name"], item, page_url, settings.crawler, rs["items_id"])
             print irs
 
