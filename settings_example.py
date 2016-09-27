@@ -1,6 +1,16 @@
 #!/usr/bin/env python
 #coding:utf-8
 
+# vnc启动
+# cp /lib/systemd/system/vncserver@.service /lib/systemd/system/vncserver@:2.service
+# vim /lib/systemd/system/vncserver@:2.service
+# systemctl stop firewalld.service
+# systemctl disable firewalld.service
+# systemctl daemon-reload
+# vncpasswd root
+# systemctl start vncserver@:2.service
+# systemctl enable vncserver@:2.service
+
 # 服务器地址
 #server_url = "http://123.207.1.180:8080"
 server_url = "http://localhost:8882"
