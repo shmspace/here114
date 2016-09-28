@@ -71,6 +71,7 @@ task4["url_sub_cat"] = "g102"
 task4["url_price"] = [42, 50, 60, 80, 120, 300]
 task4["item_attr"] = [1,1,1,0]
 task4["page"] = "p32"
+task_list.append(task4)
 
 task5 = {}
 task5["url"] = "http://www.dianping.com/search/category/8/10/g111"
@@ -81,12 +82,7 @@ task5["url_sub_cat"] = "g111"
 task5["url_price"] = [0, 50, 120, 300]
 task5["item_attr"] = [1,1,1,0]
 task5["page"] = ""
-
-
-
-
-
-task_list.append(task4)
+task_list.append(task5)
 
 
 
