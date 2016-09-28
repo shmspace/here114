@@ -231,6 +231,8 @@ class Pager(object):
                 self.true_max_price = 99999
             else:
                 return -1
+        if self.true_max_price == self.max_price:
+            return self.check_next_category_url()
         if(self.min_price < self.max_price):
             self.min_price = self.max_price
         else:
