@@ -95,8 +95,20 @@ task6["item_attr"] = [1,1,1,0]
 task6["page"] = ""
 task_list.append(task6)
 
+task7 = {}
+task7["url"] = "http://www.dianping.com/search/category/8/10/g224"
+task7["name"] = "美食-日本料理"
+task7["url_base"] = "http://www.dianping.com/search/category/"
+task7["url_cat"] = "8/10/"
+task7["url_sub_cat"] = "g224"
+task7["url_price"] = [0, 50, 120, 300]
+task7["item_attr"] = [1,1,1,0]
+task7["page"] = ""
+task_list.append(task7)
+
+
 
 task_for_crawler = {}
 task_for_crawler["crawler01"] = [task_list[5]]
-task_for_crawler["crawler02"] = [task_list[2]]
+task_for_crawler["crawler02"] = [task_list[6]]
 
