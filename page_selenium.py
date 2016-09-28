@@ -182,6 +182,7 @@ class Pager(object):
         self.url_base = page_info["url_base"]
         self.url_cat = page_info["url_cat"]
         self.url_sub_cat = page_info["url_sub_cat"]
+        self.url_page = page_info["page"]
         self.url_price = page_info["url_price"]
         self.min_price = self.url_price[0]
         self.max_price = self.url_price[1]
@@ -190,7 +191,7 @@ class Pager(object):
 
     # 获取当前分类合适的url
     def get_category_url(self):
-        return "%s%s%sx%dy%d" % (self.url_base, self.url_cat, self.url_sub_cat, self.min_price, self.max_price)
+        return "%s%s%s%sx%dy%d" % (self.url_base, self.url_cat, self.url_sub_cat, self.url_page, self.min_price, self.max_price)
 
     # 核对当前url是否超出50页
     def check_category_url(self):
@@ -223,6 +224,7 @@ class Pager(object):
                 return self.check_category_url()
 
     def check_next_category_url(self):
+        self.url_page = ""
         if self.max_price == self.true_max_price:
             self.price_key = self.price_key + 1
             if self.price_key < len(self.url_price):
