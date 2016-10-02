@@ -141,7 +141,7 @@ task_list.append(task10)
 
 task11 = {}
 task11["url"] = "http://www.dianping.com/search/category/8/10/g134"
-task11["name"] = "美食-串串香"
+task11["name"] = "美食-茶馆"
 task11["url_base"] = "http://www.dianping.com/search/category/"
 task11["url_cat"] = "8/10/"
 task11["url_sub_cat"] = "g134"
@@ -149,6 +149,54 @@ task11["url_price"] = [0, 50, 120, 300]
 task11["item_attr"] = [1,1,1,0]
 task11["page"] = ""
 task_list.append(task11)
+
+task12 = {}
+task12["url"] = "http://www.dianping.com/search/category/8/10/g117"
+task12["name"] = "美食-面包甜点"
+task12["url_base"] = "http://www.dianping.com/search/category/"
+task12["url_cat"] = "8/10/"
+task12["url_sub_cat"] = "g117"
+task12["url_price"] = [0, 50, 120, 300]
+task12["item_attr"] = [1,1,1,0]
+task12["page"] = ""
+task_list.append(task12)
+
+task13 = {}
+task13["url"] = "http://www.dianping.com/search/category/8/10/g114"
+task13["name"] = "美食-韩国料理"
+task13["url_base"] = "http://www.dianping.com/search/category/"
+task13["url_cat"] = "8/10/"
+task13["url_sub_cat"] = "g114"
+task13["url_price"] = [0, 50, 120, 300]
+task13["item_attr"] = [1,1,1,0]
+task13["page"] = ""
+task_list.append(task13)
+
+task14 = {}
+task14["url"] = "http://www.dianping.com/search/category/8/10/g115"
+task14["name"] = "美食-东南亚菜"
+task14["url_base"] = "http://www.dianping.com/search/category/"
+task14["url_cat"] = "8/10/"
+task14["url_sub_cat"] = "g115"
+task14["url_price"] = [0, 50, 120, 300]
+task14["item_attr"] = [1,1,1,0]
+task14["page"] = ""
+task_list.append(task14)
+
+task15 = {}
+task15["url"] = "http://www.dianping.com/search/category/8/10/g251"
+task15["name"] = "美食-海鲜"
+task15["url_base"] = "http://www.dianping.com/search/category/"
+task15["url_cat"] = "8/10/"
+task15["url_sub_cat"] = "g251"
+task15["url_price"] = [0, 50, 120, 300]
+task15["item_attr"] = [1,1,1,0]
+task15["page"] = ""
+task_list.append(task15)
+
+
+
+
 
 
 
@@ -158,5 +206,5 @@ task_list.append(task11)
 
 task_for_crawler = {}
 task_for_crawler["crawler01"] = [task_list[9], task_list[10]]
-task_for_crawler["crawler02"] = [task_list[8]]
+task_for_crawler["crawler02"] = [task_list[11], task_list[12], task_list[13], task_list[14]]
 
