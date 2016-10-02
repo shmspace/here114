@@ -98,6 +98,7 @@ while 1:
                 if len(page_info["url_sub_cats"]) > cat_no:
                     page_info["url_sub_cat"] = page_info["url_sub_cats"][cat_no]
                     cat_no = cat_no + 1
+                    page_info["page"] = ""
                     dianping_pager.init_category(page_info)
                     page_url = dianping_pager.check_category_url()
                     continue
