@@ -430,6 +430,32 @@ task36["item_attr"] = [1,1,1,0]
 task36["page"] = ""
 task_list.append(task36)
 
+task37 = {}
+task37["url"] = "http://www.dianping.com/search/category/8/35/g33831"
+task37["name"] = "周边游"
+task37["url_base"] = "http://www.dianping.com/search/category/"
+task37["url_cat"] = "8/35/"
+task37["url_sub_cat"] = "g33831"
+task37["url_sub_cats"] = ["g33831", "g2916", "g2926", "g2834", "g5672", "g27852", "g20038", "g22832"]
+task37["url_price"] = [0, 50, 120, 300]
+task37["item_attr"] = [1,1,1,0]
+task37["page"] = ""
+task_list.append(task37)
+
+task38 = {}
+task38["url"] = "http://www.dianping.com/search/category/8/95/g25147"
+task38["name"] = "宠物"
+task38["url_base"] = "http://www.dianping.com/search/category/"
+task38["url_cat"] = "8/95/"
+task38["url_sub_cat"] = "g25147"
+task38["url_sub_cats"] = ["g25147", "g25148"]
+task38["url_price"] = [0, 50, 120, 300]
+task38["item_attr"] = [1,1,1,0]
+task38["page"] = ""
+task_list.append(task38)
+
+
+
 
 
 
@@ -453,5 +479,5 @@ task_for_crawler = {}
 task_for_crawler["crawler01"] = [task_list[34]]
 task_for_crawler["crawler02"] = [task_list[11], task_list[12], task_list[13], task_list[14]]
 task_for_crawler["crawler03"] = [task_list[35]]
-task_for_crawler["crawler04"] = [task_list[22], task_list[23], task_list[24], task_list[25], task_list[26]]
+task_for_crawler["crawler04"] = [task_list[36], task_list[37]]
 
