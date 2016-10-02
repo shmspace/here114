@@ -68,6 +68,7 @@ while 1:
         result = dianping_pager.list_page_links(page_url)
     except Exception, e:
         time.sleep(10)
+        dianping_pager.br_reload()
         continue
     if result["rs"] == "-1":
         print "打开页面失败，暂停抓取5分钟..."
@@ -77,6 +78,7 @@ while 1:
         for i in range(1, 20):
             time.sleep(1)
             print "打开页面失败，暂停抓取20秒...%d"%(20 - i)
+        dianping_pager.br_reload()
         continue
 
     for item in result["items"]:
@@ -89,6 +91,7 @@ while 1:
                 for i in range(1, 180):
                     time.sleep(10)
                     print "打开页面失败，暂停抓取1800秒...%d"%(180 - i)
+                dianping_pager.br_reload()
                 continue
             irs = save_item_to_server(item_info, page_info["name"], item, page_url, settings.crawler, rs["items_id"])
             print irs

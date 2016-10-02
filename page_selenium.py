@@ -61,6 +61,11 @@ class Pager(object):
             self.br.close()
             self.is_closed = True
 
+    def br_reload(self):
+        self.close()
+        time.sleep(10)
+        self.init_br()
+
     # 获取下一页的地址，以及当前页所有的商铺链接
     def list_page_links(self, url):
         result = {}
