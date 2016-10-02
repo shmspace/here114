@@ -52,14 +52,14 @@ class Pager(object):
         br.maximize_window()
         self.br = br
         self.base_url = "http://www.dianping.com"
-        self.is_closed = False
         self.br.implicitly_wait(30)
         self.br.set_page_load_timeout(10)
 
     def close(self):
-        if self.is_closed == False:
+        try:
             self.br.close()
-            self.is_closed = True
+        except Exception, e:
+            pass
 
     def br_reload(self):
         self.close()
