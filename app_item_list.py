@@ -64,7 +64,11 @@ page_url = dianping_pager.check_category_url()
 
 while 1:
     print page_url
-    result = dianping_pager.list_page_links(page_url)
+    try:
+        result = dianping_pager.list_page_links(page_url)
+    except Exception, e:
+        time.sleep(10)
+        continue
     if result["rs"] == "-1":
         print "打开页面失败，暂停抓取5分钟..."
         dianping_pager.close()
