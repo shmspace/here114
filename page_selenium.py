@@ -191,13 +191,45 @@ class Pager(object):
         self.max_price = self.url_price[1]
         self.true_max_price = self.url_price[1]
         self.price_key = 0
+        self.only_normal = 0
 
     # 获取当前分类合适的url
     def get_category_url(self):
         return "%s%s%s%sx%dy%d" % (self.url_base, self.url_cat, self.url_sub_cat, self.url_page, self.min_price, self.max_price)
 
+    def get_normal_category_url(self):
+        return "%s%s%s%s" % (self.url_base, self.url_cat, self.url_sub_cat, self.url_page)
+
+    def check_normal_category_url(self):
+        url = self.get_normal_category_url()
+        for i in range(10):
+            try:
+                print "开始加载..."
+                self.br.get(url)
+                print "加载完成..."
+                break
+            except Exception,e:
+                print 'time out after 10 seconds when loading page'
+                self.br.execute_script('window.stop()')
+                time.sleep(2)
+                #当页面加载时间超过设
+        page_list = self.br.find_elements_by_xpath("//div[@class='page']/a")
+        if len(page_list) == 0:
+            self.only_normal = 1
+        else:
+            max_page = int(page_list[-2].text)
+            if max_page < 50:
+                self.only_normal = 1
+            else:
+                self.only_normal = -1
+
     # 核对当前url是否超出50页
     def check_category_url(self):
+        if self.only_normal == 0:
+            self.check_normal_category_url()
+            return self.get_normal_category_url()
+        if self.only_normal == 1:
+            return -1
         url = self.get_category_url()
         print url
         if self.max_price == self.min_price:
@@ -227,6 +259,10 @@ class Pager(object):
                 return self.check_category_url()
 
     def check_next_category_url(self):
+        if self.only_normal == -1:
+            self.only_normal = -2
+            return self.check_category_url()
+
         self.url_page = ""
         if self.max_price == self.true_max_price:
             self.price_key = self.price_key + 1
