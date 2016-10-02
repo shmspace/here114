@@ -326,6 +326,90 @@ task27["item_attr"] = [1,1,1,0]
 task27["page"] = ""
 task_list.append(task27)
 
+task28 = {}
+task28["url"] = "http://www.dianping.com/search/category/8/10/g20042"
+task28["name"] = "休闲娱乐-网吧网咖"
+task28["url_base"] = "http://www.dianping.com/search/category/"
+task28["url_cat"] = "8/10/"
+task28["url_sub_cat"] = "g20042"
+task28["url_price"] = [0, 50, 120, 300]
+task28["item_attr"] = [1,1,1,0]
+task28["page"] = ""
+task_list.append(task28)
+
+task29 = {}
+task29["url"] = "http://www.dianping.com/search/category/8/10/g144"
+task29["name"] = "休闲娱乐-DIY手工坊"
+task29["url_base"] = "http://www.dianping.com/search/category/"
+task29["url_cat"] = "8/10/"
+task29["url_sub_cat"] = "g144"
+task29["url_price"] = [0, 50, 120, 300]
+task29["item_attr"] = [1,1,1,0]
+task29["page"] = ""
+task_list.append(task29)
+
+task30 = {}
+task30["url"] = "http://www.dianping.com/search/category/8/10/g2754"
+task30["name"] = "休闲娱乐-密室"
+task30["url_base"] = "http://www.dianping.com/search/category/"
+task30["url_cat"] = "8/10/"
+task30["url_sub_cat"] = "g2754"
+task30["url_price"] = [0, 50, 120, 300]
+task30["item_attr"] = [1,1,1,0]
+task30["page"] = ""
+task_list.append(task30)
+
+task31 = {}
+task31["url"] = "http://www.dianping.com/search/category/8/10/g20039"
+task31["name"] = "休闲娱乐-真人cs"
+task31["url_base"] = "http://www.dianping.com/search/category/"
+task31["url_cat"] = "8/10/"
+task31["url_sub_cat"] = "g20039"
+task31["url_price"] = [0, 50, 120, 300]
+task31["item_attr"] = [1,1,1,0]
+task31["page"] = ""
+task_list.append(task31)
+
+task32 = {}
+task32["url"] = "http://www.dianping.com/search/category/8/10/g137"
+task32["name"] = "休闲娱乐-游乐游艺"
+task32["url_base"] = "http://www.dianping.com/search/category/"
+task32["url_cat"] = "8/10/"
+task32["url_sub_cat"] = "g137"
+task32["url_price"] = [0, 50, 120, 300]
+task32["item_attr"] = [1,1,1,0]
+task32["page"] = ""
+task_list.append(task32)
+
+task33 = {}
+task33["url"] = "http://www.dianping.com/search/category/8/10/g20038"
+task33["name"] = "休闲娱乐-农家乐"
+task33["url_base"] = "http://www.dianping.com/search/category/"
+task33["url_cat"] = "8/10/"
+task33["url_sub_cat"] = "g20038"
+task33["url_price"] = [0, 50, 120, 300]
+task33["item_attr"] = [1,1,1,0]
+task33["page"] = ""
+task_list.append(task33)
+
+task34 = {}
+task34["url"] = "http://www.dianping.com/search/category/8/10/g156"
+task34["name"] = "休闲娱乐-台球馆"
+task34["url_base"] = "http://www.dianping.com/search/category/"
+task34["url_cat"] = "8/10/"
+task34["url_sub_cat"] = "g156"
+task34["url_price"] = [0, 50, 120, 300]
+task34["item_attr"] = [1,1,1,0]
+task34["page"] = ""
+task_list.append(task34)
+
+
+
+
+
+
+
+
 
 
 
@@ -337,7 +421,8 @@ task_list.append(task27)
 
 
 task_for_crawler = {}
-task_for_crawler["crawler01"] = [task_list[9], task_list[10]]
+task_for_crawler["crawler01"] = [task_list[27], task_list[28], task_list[29], task_list[30], task_list[31]
+                                 , task_list[32], task_list[33]]
 task_for_crawler["crawler02"] = [task_list[11], task_list[12], task_list[13], task_list[14]]
 task_for_crawler["crawler03"] = [task_list[15], task_list[16], task_list[17], task_list[18], task_list[19]]
 task_for_crawler["crawler04"] = [task_list[20], task_list[21], task_list[22], task_list[23]
