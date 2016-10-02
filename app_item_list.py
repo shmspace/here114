@@ -52,7 +52,8 @@ def save_it_to_server(page_url, item_url, tasks_id, page, crawler):
 def save_shop_to_server(item_info):
     pass
 
-page_info = settings.task_for_crawler[settings.crawler][0]
+tasks_no = 0
+page_info = settings.task_for_crawler[settings.crawler][tasks_no]
 dianping_pager = page.Pager()
 dianping_pager.init_category(page_info)
 page_url = dianping_pager.check_category_url()
@@ -89,9 +90,15 @@ while 1:
     else:
         page_url = dianping_pager.check_next_category_url()
         if page_url == -1:
-            dianping_pager.close()
-            print "crawler is ok ....."
-            break
+            tasks_no = tasks_no + 1
+            if len(settings.task_for_crawler[settings.crawler]) > tasks_no:
+                page_info =  settings.task_for_crawler[settings.crawler][tasks_no]
+                dianping_pager.init_category(page_info)
+                page_url = dianping_pager.check_category_url()
+            else:
+                dianping_pager.close()
+                print "crawler is ok ....."
+                break
             # time.sleep(1)
             # dianping_pager.init_br()
 

@@ -243,6 +243,3 @@ class Pager(object):
         self.max_price = self.true_max_price
         return self.check_category_url()
 
-
-
-
