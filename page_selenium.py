@@ -78,34 +78,35 @@ class Pager(object):
             print 'time out after 10 seconds when loading page'
             self.br.execute_script('window.stop()')
             #当页面加载时间超过设
-
-        cur_page = self.br.find_elements_by_xpath("//div[@class='page']/a[@class='cur']")
+        #当前分类商品数量
+        item_num_strs = self.br.find_elements_by_xpath("//div[@class='bread J_bread']/span[@class='num']")
         try:
-            cur_page_num = int(cur_page[0].text)
+            item_num = int(item_num_strs[0].text.replace("(", "").replace(")",""))
         except Exception, e:
-            result["rs"] = "-1"
+            result["rs"] = -1
             return result
-        result["page"] = cur_page_num
-        if cur_page_num < 50:
+
+        max_page = item_num / 15
+        if (item_num % 15) > 0:
+            max_page = max_page + 1
+        if max_page > 1:
+            cur_page = self.br.find_elements_by_xpath("//div[@class='page']/a[@class='cur']")
+            cur_page_num = int(cur_page[0].text)
+        else:
+            cur_page_num = max_page
+        if max_page > cur_page_num:
             next_page_num = cur_page_num + 1
-            # 下一页的地址
             next_page_links = self.br.find_elements_by_xpath("//div[@class='page']/a[@data-ga-page='%d']"%next_page_num)
-            try:
-                next_page_url = next_page_links[0].get_attribute("href")
-            except Exception, e:
-                result["rs"] = "-2"
-                return result
+            next_page_url = next_page_links[0].get_attribute("href")
             result["next_page"] = next_page_url
-            print next_page_url
-            # 商铺链接
+        if cur_page_num > 0:
             shops_xpath = "//div[@id='shop-all-list']/ul/li/div[@class='txt']/div[@class='tit']/a[1]"
             shop_links = self.br.find_elements_by_xpath(shops_xpath)
             for shop_link in shop_links:
                 result["items"].append(shop_link.get_attribute("href"))
                 print shop_link.get_attribute("href")
-        else:
-            result["rs"] = "-2"
-            print "================>最后一页"
+        if max_page == cur_page_num:
+            print "last page!"
         return result
 
     # 获取商铺详情页信息

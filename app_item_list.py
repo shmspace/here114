@@ -69,14 +69,6 @@ while 1:
             time.sleep(1)
             print "打开页面失败，暂停抓取20秒...%d"%(20 - i)
         continue
-    elif result["rs"] == "-2":
-        print "本价目抓取完成..."
-        page_url = dianping_pager.check_next_category_url()
-        if page_url == -1:
-            print "all tasks finished .........."
-            break
-        else:
-            continue
 
     for item in result["items"]:
         rs = save_it_to_server(page_url, item, -1, result["page"], settings.crawler)
@@ -95,9 +87,13 @@ while 1:
     if result["next_page"] != "":
         page_url = result["next_page"]
     else:
-        dianping_pager.close()
-        time.sleep(1)
-        dianping_pager.init_br()
+        page_url = dianping_pager.check_next_category_url()
+        if page_url == -1:
+            dianping_pager.close()
+            print "crawler is ok ....."
+            break
+            # time.sleep(1)
+            # dianping_pager.init_br()
 
 
 
