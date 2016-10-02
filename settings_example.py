@@ -16,7 +16,7 @@
 server_url = "http://localhost:8882"
 
 # 机器名称
-crawler = "crawler01"
+crawler = "crawler04"
 
 # 本地保存excel文件地址
 is_save_file = False
@@ -156,9 +156,9 @@ task12["name"] = "美食-面包甜点"
 task12["url_base"] = "http://www.dianping.com/search/category/"
 task12["url_cat"] = "8/10/"
 task12["url_sub_cat"] = "g117"
-task12["url_price"] = [0, 50, 120, 300]
+task12["url_price"] = [12, 14, 50, 120, 300]
 task12["item_attr"] = [1,1,1,0]
-task12["page"] = ""
+task12["page"] = "p29"
 task_list.append(task12)
 
 task13 = {}
@@ -244,9 +244,9 @@ task20["name"] = "美食-其它"
 task20["url_base"] = "http://www.dianping.com/search/category/"
 task20["url_cat"] = "8/10/"
 task20["url_sub_cat"] = "g118"
-task20["url_price"] = [0, 50, 120, 300]
+task20["url_price"] = [25, 37, 50, 120, 300]
 task20["item_attr"] = [1,1,1,0]
-task20["page"] = ""
+task20["page"] = "p14"
 task_list.append(task20)
 
 task21 = {}
@@ -277,9 +277,9 @@ task23["name"] = "休闲娱乐-足疗按摩"
 task23["url_base"] = "http://www.dianping.com/search/category/"
 task23["url_cat"] = "8/10/"
 task23["url_sub_cat"] = "g141"
-task23["url_price"] = [0, 50, 120, 300]
+task23["url_price"] = [50, 120, 300]
 task23["item_attr"] = [1,1,1,0]
-task23["page"] = ""
+task23["page"] = "p19"
 task_list.append(task23)
 
 task24 = {}
@@ -403,6 +403,20 @@ task34["item_attr"] = [1,1,1,0]
 task34["page"] = ""
 task_list.append(task34)
 
+task35 = {}
+task35["url"] = "http://www.dianping.com/search/category/8/10/g157"
+task35["name"] = "休闲娱乐-丽人"
+task35["url_base"] = "http://www.dianping.com/search/category/"
+task35["url_cat"] = "8/50/"
+task35["url_sub_cat"] = "g157"
+task35["url_sub_cats"] = ["g157", "g158", "g33761", "g148", "g149", "g2898", "g159", "g493", "g123", "g2572"
+                          , "g183", "g2790"]
+task35["url_price"] = [0, 50, 120, 300]
+task35["item_attr"] = [1,1,1,0]
+task35["page"] = ""
+task_list.append(task35)
+
+
 
 
 
@@ -421,10 +435,8 @@ task_list.append(task34)
 
 
 task_for_crawler = {}
-task_for_crawler["crawler01"] = [task_list[27], task_list[28], task_list[29], task_list[30], task_list[31]
-                                 , task_list[32], task_list[33]]
+task_for_crawler["crawler01"] = [task_list[34]]
 task_for_crawler["crawler02"] = [task_list[11], task_list[12], task_list[13], task_list[14]]
-task_for_crawler["crawler03"] = [task_list[15], task_list[16], task_list[17], task_list[18], task_list[19]]
-task_for_crawler["crawler04"] = [task_list[20], task_list[21], task_list[22], task_list[23]
-                                 , task_list[24], task_list[25], task_list[26]]
+task_for_crawler["crawler03"] = [task_list[19]]
+task_for_crawler["crawler04"] = [task_list[22], task_list[23], task_list[24], task_list[25], task_list[26]]
 

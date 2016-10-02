@@ -138,7 +138,7 @@ class Pager(object):
 
 
         # 匹配标题
-        shop_title_xpath = u"//div[@class='breadcrumb']/div[@class='inner']/span|//div[@class='breadcrumb']/strong|//div[@class='breadcrumb']/span"
+        shop_title_xpath = u"//div[@class='breadcrumb']/div[@class='inner']/span|//div[@class='breadcrumb']/strong|//div[@class='breadcrumb']/span|//div[@class='breadcrumb']/*[last()]"
         shop_titles = self.br.find_elements_by_xpath(shop_title_xpath)
         title = shop_titles[0].text
         result["title"] = title.encode("utf-8")
