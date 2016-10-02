@@ -146,7 +146,7 @@ class Pager(object):
 
 
         # 匹配地址
-        shop_address_xpath = u"//div[@class='brief-info']/div[@class='address']|//div[@class='shop-info']/div[@class='shop-addr']/span|//div[@itemprop='street-address']"
+        shop_address_xpath = u"//div[@class='brief-info']/div[@class='address']|//div[@class='shop-info']/div[@class='shop-addr']/span|//div[@itemprop='street-address']|//dl[@class='shopDeal-Info-address']"
         shop_addresses = self.br.find_elements_by_xpath(shop_address_xpath)
         address_str = shop_addresses[0].get_attribute("innerHTML")
         address_str = dr.sub('', address_str)
@@ -155,6 +155,7 @@ class Pager(object):
 
         # 匹配电话
         shop_phone_xpath = u"//div[@id='basic-info']/p[1]|//div[@class='book']/div[@class='phone']/span|//div[@class='shop-info']/div[@class='shopinfor']/p/span[1]|//span[@itemprop='tel']"
+        shop_phone_xpath = shop_phone_xpath + "|//div[@class='desc-list']/dl[2]"
         print "开始匹配电话..."
         shop_phones = self.br.find_elements_by_xpath(shop_phone_xpath)
         print "匹配电话完成..."
