@@ -27,6 +27,7 @@ dianping_pager = page.Pager()
 #print result
 #url = u"http://www.dianping.com/shop/22998876"
 #url = u"http://www.dianping.com/shop/5426914"
-url = u"http://www.dianping.com/shop/18288150"
+#url = u"http://www.dianping.com/shop/18288150"
+url = u"http://www.dianping.com/shop/58209735"
 item_info = dianping_pager.get_item_info(url, page_info["item_attr"])
 dianping_pager.close()
