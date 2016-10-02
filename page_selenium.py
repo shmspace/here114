@@ -94,6 +94,8 @@ class Pager(object):
             cur_page_num = int(cur_page[0].text)
         else:
             cur_page_num = max_page
+        if max_page > 50:
+            max_page = 50
         if max_page > cur_page_num:
             next_page_num = cur_page_num + 1
             next_page_links = self.br.find_elements_by_xpath("//div[@class='page']/a[@data-ga-page='%d']"%next_page_num)
