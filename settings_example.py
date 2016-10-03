@@ -491,7 +491,7 @@ task41["name"] = "医疗健康"
 task41["url_base"] = "http://www.dianping.com/search/category/"
 task41["url_cat"] = "8/85/"
 task41["url_sub_cat"] = "g181"
-task41["url_sub_cats"] = ["g181", "g235", "g182", "g2914", "g612", "g183", "g25148", "g257", "g2912"]
+task41["url_sub_cats"] = ["g2914", "g612", "g183", "g25148", "g257", "g2912"]
 task41["url_price"] = [0, 50, 120, 300]
 task41["item_attr"] = [1,1,1,0]
 task41["page"] = ""
@@ -517,7 +517,7 @@ task43["name"] = "美食-火锅"
 task43["url_base"] = "http://www.dianping.com/search/category/"
 task43["url_cat"] = "8/10/"
 task43["url_sub_cat"] = "g110"
-task43["url_sub_cats"] = ["g110", "g208", "g209", "g3023", "g3027", "g4273", "g4345", "g32712", "g32713", "g102",
+task43["url_sub_cats"] = ["g3027", "g4273", "g4345", "g32712", "g32713", "g102",
                           "g3031", "g4467", "g4473"]
 task43["url_price"] = [0, 50, 120, 300]
 task43["item_attr"] = [1,1,1,0]

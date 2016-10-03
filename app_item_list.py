@@ -99,7 +99,12 @@ while 1:
     if result["next_page"] != "":
         page_url = result["next_page"]
     else:
-        page_url = dianping_pager.check_next_category_url()
+        try:
+            page_url = dianping_pager.check_next_category_url()
+        except Exception, e:
+            time.sleep(10)
+            dianping_pager.br_reload()
+            continue
         if page_url == -1:
             if cat_no > 0:
                 if len(page_info["url_sub_cats"]) > cat_no:
@@ -107,7 +112,13 @@ while 1:
                     cat_no = cat_no + 1
                     page_info["page"] = ""
                     dianping_pager.init_category(page_info)
-                    page_url = dianping_pager.check_category_url()
+                    for i in range(1, 20):
+                        try:
+                            page_url = dianping_pager.check_category_url()
+                            break
+                        except Exception, e:
+                            time.sleep(120)
+                            pass
                     continue
                 else:
                     cat_no = 0
