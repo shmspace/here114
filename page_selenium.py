@@ -218,7 +218,7 @@ class Pager(object):
             except Exception,e:
                 print 'time out after 10 seconds when loading page'
                 #self.br.execute_script('window.stop()')
-                time.sleep(2)
+                time.sleep(10)
                 self.br_reload()
                 #当页面加载时间超过设
         page_list = self.br.find_elements_by_xpath("//div[@class='page']/a")
