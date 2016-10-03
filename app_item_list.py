@@ -118,6 +118,7 @@ while 1:
                             break
                         except Exception, e:
                             time.sleep(120)
+                            dianping_pager.br_reload()
                             pass
                     continue
                 else:
