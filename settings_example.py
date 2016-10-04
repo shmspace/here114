@@ -454,24 +454,22 @@ task38["item_attr"] = [1,1,1,0]
 task38["page"] = ""
 task_list.append(task38)
 
+# 此处之前每个需要抓取无价格分割的
+
 task39 = {}
 task39["url"] = "http://www.dianping.com/search/category/8/80/g4607"
 task39["name"] = "生活服务"
 task39["url_base"] = "http://www.dianping.com/search/category/"
 task39["url_cat"] = "8/80/"
 task39["url_sub_cat"] = "g4607"
-task39["url_sub_cats"] = ["g4607", "g33762", "g2929", "g195", "g26117", "g2976", "g2978", "g2979", "g181",
-                          "g612", "g2934", "g32742", "g2974", "g2980", "g2928", "g2932", "g836", "g197",
+task39["url_sub_cats"] = ["g4607", "g3064", "g3066","g33762", "g2929", "g195", "g26117", "g2976", "g2978", "g2979", 
+                          "g181", "g612", "g2934", "g32742", "g2974", "g2980", "g2928", "g2932", "g836", "g197",
                           "g237", "g835", "g2930", "g979", "g980", "g25462", "g6823", "g3063", "g26465",
                           "g2884", "g3082", "g26119", "g26466", "g26491"]
 task39["url_price"] = [0, 50, 120, 300]
 task39["item_attr"] = [1,1,1,0]
 task39["page"] = ""
 task_list.append(task39)
-
-
-# 此处之前每个需要抓取无价格分割的
-
 
 task40 = {}
 task40["url"] = "http://www.dianping.com/search/category/8/65/g2828"
@@ -628,6 +626,32 @@ task51["item_attr"] = [1,1,1,0]
 task51["page"] = ""
 task_list.append(task51)
 
+task52 = {}
+task52["url"] = "http://www.dianping.com/search/category/8/35/g33831"
+task52["name"] = "周边游-景点"
+task52["url_base"] = "http://www.dianping.com/search/category/"
+task52["url_cat"] = "8/35/"
+task52["url_sub_cat"] = "g33831"
+task52["url_sub_cats"] = ["g33831", "g2926", "g2916", "g2834", "g5672", "g20038"]
+task52["url_price"] = [0, 50, 120, 300]
+task52["item_attr"] = [1,1,1,0]
+task52["page"] = ""
+task_list.append(task52)
+
+task53 = {}
+task53["url"] = "http://www.dianping.com/search/category/8/39/g25147"
+task53["name"] = "宠物"
+task53["url_base"] = "http://www.dianping.com/search/category/"
+task53["url_cat"] = "8/95/"
+task53["url_sub_cat"] = "g25147"
+task53["url_sub_cats"] = ["g25147", "g25148"]
+task53["url_price"] = [0, 50, 120, 300]
+task53["item_attr"] = [1,1,1,0]
+task53["page"] = ""
+task_list.append(task53)
+
+
+
 
 
 
@@ -639,7 +663,7 @@ task_list.append(task51)
 
 
 task_for_crawler = {}
-task_for_crawler["crawler01"] = [task_list[49], task_list[50]]
+task_for_crawler["crawler01"] = [task_list[51], task_list[52], task_list[38]]
 task_for_crawler["crawler02"] = [task_list[46]]
 task_for_crawler["crawler03"] = [task_list[47]]
 task_for_crawler["crawler04"] = [task_list[48]]
