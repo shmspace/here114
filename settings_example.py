@@ -542,8 +542,7 @@ task45["name"] = "美食-面包甜点-韩国料理-东南亚菜-海鲜-私房菜
 task45["url_base"] = "http://www.dianping.com/search/category/"
 task45["url_cat"] = "8/10/"
 task45["url_sub_cat"] = "g117"
-task45["url_sub_cats"] = ["g117", "g240", "g241", "g1833", "g114", "g115", "g251", "g1338", "g103",
-                          "g108", "g3243"]
+task45["url_sub_cats"] = ["g108", "g3243"]
 task45["url_price"] = [0, 50, 120, 300]
 task45["item_attr"] = [1,1,1,0]
 task45["page"] = ""
@@ -562,13 +561,48 @@ task46["item_attr"] = [1,1,1,0]
 task46["page"] = ""
 task_list.append(task46)
 
+task47 = {}
+task47["url"] = "http://www.dianping.com/search/category/8/30/g135"
+task47["name"] = "休闲娱乐-KTV-足疗按摩-咖啡厅-酒吧-洗浴-轰趴馆-茶馆"
+task47["url_base"] = "http://www.dianping.com/search/category/"
+task47["url_cat"] = "8/30/"
+task47["url_sub_cat"] = "g135"
+task47["url_sub_cats"] = ["g135", "g141", "g132", "g133", "g140", "g20040", "g134", "g134r39", "g134r35",
+                          "g134r37", "g134c1604", "g134r36", "g134r38", "g134c1605", "g134r4956", "g134r27623",
+                          "g134r27622", "g134r27619", "g134c1608", "g134c1609", "g134c1610", "g134c1611",
+                          "g134c1612", "g134c1613", "g134c4425", "g134c4424"]
+task47["url_price"] = [0, 50, 120, 300]
+task47["item_attr"] = [1,1,1,0]
+task47["page"] = ""
+task_list.append(task47)
 
+task48 = {}
+task48["url"] = "http://www.dianping.com/search/category/8/50/g157"
+task48["name"] = "丽人-美发"
+task48["url_base"] = "http://www.dianping.com/search/category/"
+task48["url_cat"] = "8/50/"
+task48["url_sub_cat"] = "g157"
+task48["url_sub_cats"] = ["g157", "g157r39", "g157r35", "g157r37", "g157c1604", "g157r36", "g157r38", "g157c1605",
+                          "g157r4956", "g157r27623", "g157r27622", "g157r27619", "g157c1608", "g157c1609",
+                          "g157c1610", "g157c1611", "g157c1612", "g157c1613", "g157c4425", "g157c4424"]
+task48["url_price"] = [0, 50, 120, 300]
+task48["item_attr"] = [1,1,1,0]
+task48["page"] = ""
+task_list.append(task48)
 
-
-
-
-
-
+task49 = {}
+task49["url"] = "http://www.dianping.com/search/category/8/50/g158"
+task49["name"] = "丽人-spa-美甲"
+task49["url_base"] = "http://www.dianping.com/search/category/"
+task49["url_cat"] = "8/50/"
+task49["url_sub_cat"] = "g158"
+task49["url_sub_cats"] = ["g158", "g158r39", "g158r35", "g158r37", "g158c1604", "g158r36", "g158r38", "g158c1605",
+                          "g158r4956", "g158r27623", "g158r27622", "g158r27619", "g158c1608", "g158c1609",
+                          "g158c1610", "g158c1611", "g158c1612", "g158c1613", "g158c4425", "g158c4424", "g33761"]
+task49["url_price"] = [0, 50, 120, 300]
+task49["item_attr"] = [1,1,1,0]
+task49["page"] = ""
+task_list.append(task49)
 
 
 
@@ -580,7 +614,7 @@ task_list.append(task46)
 
 task_for_crawler = {}
 task_for_crawler["crawler01"] = [task_list[44]]
-task_for_crawler["crawler02"] = [task_list[43]]
-task_for_crawler["crawler03"] = [task_list[38]]
-task_for_crawler["crawler04"] = [task_list[45]]
+task_for_crawler["crawler02"] = [task_list[46]]
+task_for_crawler["crawler03"] = [task_list[47]]
+task_for_crawler["crawler04"] = [task_list[48]]
 
