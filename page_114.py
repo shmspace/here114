@@ -10,6 +10,9 @@ import types
 import xlrd
 import xlwt as ExcelWrite
 
+import urllib2
+import urllib
+import json
 
 ROOT_DIR = os.getcwd()
 
@@ -103,7 +106,152 @@ class ExcelManage(object):
             phones[i] = tphone
         return phones
 
+def format_phone(phone):
+    real_phone = []
+    phones = phone.split(" ")
+    if len(phones) == 1:
+        phones = phone.split(",")
+    if len(phones) == 1:
+        phones = phone.split("|")
+    for i in range(0, len(phones)):
+        tphone = phones[i]
+        if tphone[0:4] == "028-":
+            tphone = tphone[4:100]
+            real_phone.append(tphone)
+        if tphone[0:5] == "(028)":
+            tphone = tphone[5:100]
+            real_phone.append(tphone)
+        if tphone[0:3] == "028":
+            tphone = tphone[3:100]
+            real_phone.append(tphone)
+        if tphone[0:1] == "1":
+            tphone = tphone[0:11]
+            real_phone.append(tphone)
+        try:
+            if str(int(tphone)) == tphone:
+                real_phone.append(tphone)
+        except Exception, e:
+            pass
+    return real_phone
 
+
+
+def find_item_from_server(from_id):
+    server_url = "http://123.207.1.180:8080"
+    url = "%s/index.php?r=api/site/find&max_id=%d&limit=2000" % (server_url, from_id)
+    print url
+    req = urllib2.urlopen(url)
+    print "Item 数据发送服务器保存成功......"
+    result = req.read()
+    reqs = json.loads(result)
+    return reqs
+
+need_percent = 50
+
+
+i = raw_input("输入起始id: ")
+
+while 1:
+    url = "http://133.37.92.17:8083/besttone/agent/businessMainAction.do?action=hmfc"
+    items = find_item_from_server(i)
+    rows = []
+    page = Pager()
+    page.init_br(url)
+    output_xls = "/Users/yaoyilin/dev/python/here114/doc/output_data10_%s.xls" % i
+    for item in items:
+        i = item["id"]
+        print item["phone"]
+        print item["id"]
+
+        name = item["name"]
+        address = item["adress"]
+        cur_phone = item["phone"]
+        source = item["item_url"]
+        phone = format_phone(item["phone"])
+        if len(phone) == 0:
+            continue
+        for j in range(0, len(phone)):
+            old_name, old_phone, old_address = page.get_info(phone[j])
+            percent = page.check_name(old_name, name)
+            if old_name != '':
+                break
+        row = {}
+        row["category"] = item["category"]
+        row["name"] = name
+        row["address"] = address
+        row["cur_phone"] = cur_phone
+        row["source"] = source
+        row["old_name"] = old_name
+        row["old_phone"] = old_phone
+        row["old_address"] = old_address
+        row["percent"] = percent
+        if percent >= need_percent:
+            row["status"] = "ok"
+        else:
+            if row["old_name"] != '':
+                row["status"] = "update"
+            else:
+                row["status"] = "check_name"
+        rows.append(row)
+
+    page.br.close()
+
+    # 检查地址
+    url_address = "http://133.37.92.17:8083/besttone/agent/businessMainAction.do?action=hxxx"
+    page_address = Pager()
+    page_address.init_br(url_address)
+
+    for n in range(0, len(rows)):
+        row = rows[n]
+        print n
+        if row["status"] == "check_name":
+            old_name, old_phone, old_address = page_address.get_info(row["name"])
+            if old_name == '':
+                row["status"] = "new"
+            else:
+                row["status"] = "update_phone"
+                row["old_name"] = old_name
+                row["old_phone"] = old_phone
+                row["old_address"] = old_address
+            rows[n] = row
+
+    page_address.br.close()
+
+    # 保存excel
+
+    xls = ExcelWrite.Workbook()
+    sheet = xls.add_sheet("Sheet1")
+    
+    sheet.write(0, 0, "分类".decode("utf-8"))
+    sheet.write(0, 1, "名称".decode("utf-8"))
+    sheet.write(0, 2, "地址".decode("utf-8"))
+    sheet.write(0, 3, "电话".decode("utf-8"))
+    sheet.write(0, 4, "来源".decode("utf-8"))
+    sheet.write(0, 5, "系统名称".decode("utf-8"))
+    sheet.write(0, 6, "系统电话".decode("utf-8"))
+    sheet.write(0, 7, "系统地址".decode("utf-8"))
+    sheet.write(0, 8, "status")
+    
+    for m in range(0, len(rows)):
+        row = rows[m]
+        sheet.write(m+1, 0, row["category"])
+        sheet.write(m+1, 1, row["name"])
+        sheet.write(m+1, 2, row["address"])
+        sheet.write(m+1, 3, row["cur_phone"])
+        sheet.write(m+1, 4, row["source"])
+        sheet.write(m+1, 5, row["old_name"].decode("utf-8"))
+        sheet.write(m+1, 6, row["old_phone"].decode("utf-8"))
+        sheet.write(m+1, 7, row["old_address"].decode("utf-8"))
+        sheet.write(m+1, 8, row["status"])
+
+    xls.save(output_xls)
+
+    if len(items) < 100:
+        break
+
+
+
+"""
 
 need_percent = 50
 current_name = u"米乐星乐美斯量贩"
@@ -173,6 +321,7 @@ for i in range(0, len(rows)):
 page_address.br.close()
 
 # 保存excel
+
 xls = ExcelWrite.Workbook()
 sheet = xls.add_sheet("Sheet1")
 for i in range(0, len(rows)):
@@ -208,6 +357,6 @@ rs["percent"] = percent
 
 out_rs.append(rs)
 print out_rs
-
+"""
 
 
