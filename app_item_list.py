@@ -25,7 +25,11 @@ def save_item_to_server(item_info, category, item_url, list_url, crawler, item_t
     url = "%s/index.php?r=api/site" % settings.server_url
     post_data = urllib.urlencode(data)
     print post_data
-    req = urllib2.urlopen(url, post_data)
+    try:
+        req = urllib2.urlopen(url, post_data)
+    except Exception, e:
+        time.sleep(10)
+        req = urllib2.urlopen(url, post_data)
     print "Item 数据发送服务器保存成功......"
     result = req.read()
     print result
@@ -42,7 +46,11 @@ def save_it_to_server(page_url, item_url, tasks_id, page, crawler):
     url = "%s/index.php?r=api/site/addit" % settings.server_url
     post_data = urllib.urlencode(data)
     print post_data
-    req = urllib2.urlopen(url, post_data)
+    try:
+        req = urllib2.urlopen(url, post_data)
+    except Exception, e:
+        time.sleep(10)
+        req = urllib2.urlopen(url, post_data)
     print "Item Task 数据发送服务器保存成功......"
     result = req.read()
     print result
