@@ -1107,6 +1107,80 @@ task["item_attr"] = [1,1,1,0]
 task["page"] = ""
 task_list.append(task)
 
+###### 宜宾 #######90
+task = {}
+task["url"] = "http://www.dianping.com/search/category/249/10/g508"
+task["name"] = "[宜宾]美食"
+task["url_base"] = "http://www.dianping.com/search/category/"
+task["url_cat"] = "249/10/"
+task["url_sub_cat"] = "g508"
+task["url_sub_cats"] = ["g110", "g117", "g111", "g102", "g116", "g132", "g508", "g113", "g114",
+                          "g133", "g134", "g217", "g103", "g210", "g118"]
+task["url_price"] = [0, 50, 120, 300]
+task["item_attr"] = [1,1,1,0]
+task["page"] = ""
+task_list.append(task)
+
+task = {}
+task["url"] = "http://www.dianping.com/search/category/249/30"
+task["name"] = "[宜宾]休闲娱乐"
+task["url_base"] = "http://www.dianping.com/search/category/"
+task["url_cat"] = "249/30/"
+task["url_sub_cat"] = ""
+task["url_sub_cats"] = ["", "g135", "g141", "g134"]
+task["url_price"] = [0, 50, 120, 300]
+task["item_attr"] = [1,1,1,0]
+task["page"] = ""
+task_list.append(task)
+
+task = {}
+task["url"] = "http://www.dianping.com/search/category/249/50"
+task["name"] = "[宜宾]丽人"
+task["url_base"] = "http://www.dianping.com/search/category/"
+task["url_cat"] = "249/50/"
+task["url_sub_cat"] = ""
+task["url_sub_cats"] = ["", "g157", "g158", "g33761", "g123"]
+task["url_price"] = [0, 50, 120, 300]
+task["item_attr"] = [1,1,1,0]
+task["page"] = ""
+task_list.append(task)
+
+task = {}
+task["url"] = "http://www.dianping.com/search/category/249/80"
+task["name"] = "[宜宾]生活服务"
+task["url_base"] = "http://www.dianping.com/search/category/"
+task["url_cat"] = "249/80/"
+task["url_sub_cat"] = ""
+task["url_sub_cats"] = ["", "g4607", "g4606", "g872", "g32742", "g836", "g237", "g835", "g979", "g26465", "g26491"]
+task["url_price"] = [0, 50, 120, 300]
+task["item_attr"] = [1,1,1,0]
+task["page"] = ""
+task_list.append(task)
+
+task = {}
+task["url"] = "http://www.dianping.com/search/category/249/65"
+task["name"] = "[宜宾]爱车服务"
+task["url_base"] = "http://www.dianping.com/search/category/"
+task["url_cat"] = "249/65/"
+task["url_sub_cat"] = ""
+task["url_sub_cats"] = [""]
+task["url_price"] = [0, 50, 120, 300]
+task["item_attr"] = [1,1,1,0]
+task["page"] = ""
+task_list.append(task)
+
+task = {}
+task["url"] = "http://www.dianping.com/search/category/249/85"
+task["name"] = "[宜宾]医疗健康"
+task["url_base"] = "http://www.dianping.com/search/category/"
+task["url_cat"] = "249/85/"
+task["url_sub_cat"] = ""
+task["url_sub_cats"] = ["", "g181", "g235", "g182", "g2914", "g612", "g183", "g25148", "g2912"]
+task["url_price"] = [0, 50, 120, 300]
+task["item_attr"] = [1,1,1,0]
+task["page"] = ""
+task_list.append(task)
+
 
 
 
@@ -1120,19 +1194,21 @@ task_list.append(task)
 task_for_crawler = {}
 #task_for_crawler["crawler01"] = [task_list[51], task_list[52], task_list[38]]
 #task_for_crawler["crawler02"] = [task_list[46]]
-task_for_crawler["crawler03"] = [task_list[60], task_list[61], task_list[62], task_list[63],
-                                 task_list[64], task_list[65]]
+#task_for_crawler["crawler03"] = [task_list[60], task_list[61], task_list[62], task_list[63],
+#                                 task_list[64], task_list[65]]
 #task_for_crawler["crawler04"] = [task_list[48]]
-task_for_crawler["crawler04"] = [task_list[55], task_list[56], task_list[57], task_list[58],
-                                 task_list[59], task_list[54]]
-task_for_crawler["crawler05"] = [task_list[66], task_list[67], task_list[68], task_list[69],
-                                 task_list[70], task_list[71]]
-task_for_crawler["crawler06"] = [task_list[72], task_list[73], task_list[74], task_list[75],
-                                 task_list[76], task_list[77]]
-task_for_crawler["crawler07"] = [task_list[78], task_list[79], task_list[80], task_list[81],
-                                 task_list[82], task_list[83]]
-task_for_crawler["crawler08"] = [task_list[84], task_list[85], task_list[86], task_list[87],
-                                 task_list[88], task_list[89]]
+#task_for_crawler["crawler04"] = [task_list[55], task_list[56], task_list[57], task_list[58],
+#                                 task_list[59], task_list[54]]
+#task_for_crawler["crawler05"] = [task_list[66], task_list[67], task_list[68], task_list[69],
+#                                 task_list[70], task_list[71]]
+#task_for_crawler["crawler06"] = [task_list[72], task_list[73], task_list[74], task_list[75],
+#                                 task_list[76], task_list[77]]
+#task_for_crawler["crawler07"] = [task_list[78], task_list[79], task_list[80], task_list[81],
+#                                 task_list[82], task_list[83]]
+#task_for_crawler["crawler08"] = [task_list[84], task_list[85], task_list[86], task_list[87],
+#                                 task_list[88], task_list[89]]
 
+task_for_crawler["crawler03"] = [task_list[90], task_list[91], task_list[92], task_list[93],
+                                 task_list[94], task_list[95]]
 
 
