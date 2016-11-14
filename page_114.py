@@ -5,6 +5,7 @@ from selenium.webdriver.common.keys import Keys #引入keys类操作
 
 import os
 import time
+import signal
 import types
 
 import xlrd
@@ -138,30 +139,53 @@ def format_phone(phone):
 
 def find_item_from_server(from_id):
     server_url = "http://123.207.1.180:8080"
-    url = "%s/index.php?r=api/site/find&max_id=%d&limit=2000" % (server_url, from_id)
-    print url
+    url = "%s/index.php?r=api/site/find&max_id=%d&limit=500" % (server_url, from_id)
+    logger(url)
     req = urllib2.urlopen(url)
-    print "Item 数据发送服务器保存成功......"
+    logger("Item 数据发送服务器保存成功......")
     result = req.read()
     reqs = json.loads(result)
     return reqs
 
+def handler(signum, frame):
+    logger("timeout!")
+    raise SystemExit("exit.....")
+
+def logger(log):
+    os.system("echo %s >> /tmp/test.log" % str(log))
+
+
+
+os.system("killall firefox")
+
+signal.signal(signal.SIGALRM, handler)
+
 need_percent = 50
 
-
-i = raw_input("输入起始id: ")
+settings = "/tmp/current_id.txt"
+try:
+    handle = open(settings, "r")
+    i = int(handle.read())
+    handle.close()
+except:
+    i = int(raw_input("输入起始id: "))
 
 while 1:
     url = "http://133.37.92.17:8083/besttone/agent/businessMainAction.do?action=hmfc"
+    handle = open(settings, "w")
+    handle.write(str(i)) 
+    handle.close()
+
     items = find_item_from_server(i)
     rows = []
     page = Pager()
     page.init_br(url)
-    output_xls = "/Users/yaoyilin/dev/python/here114/doc/output_data10_%s.xls" % i
+    output_xls = "/home/aaoo/桌面/excel/output_data10_%s.xls" % i
     for item in items:
         i = item["id"]
-        print item["phone"]
-        print item["id"]
+
+        logger(time.strftime("[%Y-%m-%d %H:%M:%S]",time.localtime(time.time())))
+        logger(item["id"])
 
         name = item["name"]
         address = item["adress"]
@@ -171,12 +195,22 @@ while 1:
         if len(phone) == 0:
             continue
         for j in range(0, len(phone)):
-            old_name, old_phone, old_address = page.get_info(phone[j])
+            while 1:
+                try:
+                    signal.alarm(30)
+                    old_name, old_phone, old_address = page.get_info(phone[j])
+                    signal.alarm(0)
+                    break
+                except Exception, e:
+                    signal.alarm(0)
+                    time.sleep(5)
+                    logger("error!")
             percent = page.check_name(old_name, name)
             if old_name != '':
                 break
         row = {}
         row["category"] = item["category"]
+        row["id"] = item["id"]
         row["name"] = name
         row["address"] = address
         row["cur_phone"] = cur_phone
@@ -195,6 +229,7 @@ while 1:
         rows.append(row)
 
     page.br.close()
+    page.br.quit()
 
     # 检查地址
     url_address = "http://133.37.92.17:8083/besttone/agent/businessMainAction.do?action=hxxx"
@@ -203,9 +238,21 @@ while 1:
 
     for n in range(0, len(rows)):
         row = rows[n]
-        print n
+        logger(time.strftime("[%Y-%m-%d %H:%M:%S]",time.localtime(time.time())))
+        logger(n)
         if row["status"] == "check_name":
-            old_name, old_phone, old_address = page_address.get_info(row["name"])
+            while 1:
+                try:
+                    signal.alarm(60)
+	            old_name, old_phone, old_address = page_address.get_info(row["name"])
+                    signal.alarm(0)
+                    break
+                except Exception, e:
+                    signal.alarm(0)
+                    time.sleep(5)
+                    logger("error!")
+                    pass
+ 
             if old_name == '':
                 row["status"] = "new"
             else:
@@ -216,6 +263,7 @@ while 1:
             rows[n] = row
 
     page_address.br.close()
+    page_address.br.quit()
 
     # 保存excel
 
@@ -231,6 +279,7 @@ while 1:
     sheet.write(0, 6, "系统电话".decode("utf-8"))
     sheet.write(0, 7, "系统地址".decode("utf-8"))
     sheet.write(0, 8, "status")
+    sheet.write(0, 9, "id")
     
     for m in range(0, len(rows)):
         row = rows[m]
@@ -243,6 +292,7 @@ while 1:
         sheet.write(m+1, 6, row["old_phone"].decode("utf-8"))
         sheet.write(m+1, 7, row["old_address"].decode("utf-8"))
         sheet.write(m+1, 8, row["status"])
+        sheet.write(m+1, 9, row["id"])
 
     xls.save(output_xls)
 
