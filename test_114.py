@@ -124,11 +124,19 @@ def format_phone(phone):
             tphone = tphone[3:100]
         if tphone[0:1] == "1":
             tphone = tphone[0:11]
+
         area_list = ["0816-", "0833-", "0838-", "0817-", "0818-", "0830-", "0831-", "0832-", "0813-", "0826-"]
         if tphone[0:5] in area_list:
             tphone = tphone[5:100]
-        if tphone != phones[i]:
-            real_phone.append(tphone)
+
+        area_list = ["(0816)", "(0833)", "(0838)", "(0817)", "(0818)", "(0830)", "(0831)", "(0832)", "(0813)", "(0826)"]
+        if tphone[0:6] in area_list:
+            tphone = tphone[6:100]
+
+        area_list = ["0816", "0833", "0838", "0817", "0818", "0830", "0831", "0832", "0813", "0826"]
+        if tphone[0:4] in area_list:
+            tphone = tphone[4:100]
+
         try:
             if str(int(tphone)) == tphone:
                 real_phone.append(tphone)
