@@ -29,10 +29,12 @@ class Pager(object):
         self.url = url
         self.br.get(self.url)
 
-    def get_info(self, phone):
+    def get_info(self, phone, code):
         phone_input = self.br.find_elements_by_xpath("//input[@name='Keywords']")
         phone_input[0].clear()
         phone_input[0].send_keys(phone)
+
+        self.select_by_value(code)
 
         search_input = self.br.find_elements_by_xpath("//img[@src='../images/button_search.gif']")
         search_input[0].click()
@@ -195,4 +197,136 @@ def handler(signum, frame):
 
 def logger(log):
     os.system("echo %s >> /tmp/test.log" % str(log))
+
+while 1:
+    url = "http://133.37.92.17:8083/besttone/agent/businessMainAction.do?action=hmfc"
+    handle = open(settings, "w")
+    handle.write(str(i)) 
+    handle.close()
+
+    items = find_item_from_server(i)
+    rows = []
+    page = Pager()
+    page.init_br(url)
+    output_xls = "/home/aaoo/桌面/excel/output_data10_%s.xls" % i
+    for item in items:
+        i = item["id"]
+
+        logger(time.strftime("[%Y-%m-%d %H:%M:%S]",time.localtime(time.time())))
+        logger(item["id"])
+
+        name = item["name"]
+        address = item["adress"]
+        cur_phone = item["phone"]
+        source = item["item_url"]
+        phone = format_phone(item["phone"])
+        code = find_area(item["category"])
+        if len(phone) == 0:
+            continue
+        for j in range(0, len(phone)):
+            while 1:
+                try:
+                    signal.alarm(30)
+                    old_name, old_phone, old_address = page.get_info(phone[j], code)
+                    signal.alarm(0)
+                    break
+                except Exception, e:
+                    signal.alarm(0)
+                    time.sleep(5)
+                    logger("error!")
+            percent = page.check_name(old_name, name)
+            if old_name != '':
+                break
+        row = {}
+        row["category"] = item["category"]
+        row["id"] = item["id"]
+        row["name"] = name
+        row["address"] = address
+        row["cur_phone"] = cur_phone
+        row["source"] = source
+        row["old_name"] = old_name
+        row["old_phone"] = old_phone
+        row["old_address"] = old_address
+        row["percent"] = percent
+        if percent >= need_percent:
+            row["status"] = "ok"
+        else:
+            if row["old_name"] != '':
+                row["status"] = "update"
+            else:
+                row["status"] = "check_name"
+        rows.append(row)
+
+    page.br.close()
+    page.br.quit()
+
+    # 检查地址
+    url_address = "http://133.37.92.17:8083/besttone/agent/businessMainAction.do?action=hxxx"
+    page_address = Pager()
+    page_address.init_br(url_address)
+
+    for n in range(0, len(rows)):
+        row = rows[n]
+        logger(time.strftime("[%Y-%m-%d %H:%M:%S]",time.localtime(time.time())))
+        logger(n)
+        if row["status"] == "check_name":
+            while 1:
+                try:
+                    signal.alarm(60)
+                    code = find_area(row["category"])
+                    old_name, old_phone, old_address = page_address.get_info(row["name"], code)
+                    signal.alarm(0)
+                    break
+                except Exception, e:
+                    signal.alarm(0)
+                    time.sleep(5)
+                    logger("error!")
+                    pass
+
+            if old_name == '':
+                row["status"] = "new"
+            else:
+                row["status"] = "update_phone"
+                row["old_name"] = old_name
+                row["old_phone"] = old_phone
+                row["old_address"] = old_address
+            rows[n] = row
+
+    page_address.br.close()
+    page_address.br.quit()
+
+    # 保存excel
+
+    xls = ExcelWrite.Workbook()
+    sheet = xls.add_sheet("Sheet1")
+    
+    sheet.write(0, 0, "分类".decode("utf-8"))
+    sheet.write(0, 1, "名称".decode("utf-8"))
+    sheet.write(0, 2, "地址".decode("utf-8"))
+    sheet.write(0, 3, "电话".decode("utf-8"))
+    sheet.write(0, 4, "来源".decode("utf-8"))
+    sheet.write(0, 5, "系统名称".decode("utf-8"))
+    sheet.write(0, 6, "系统电话".decode("utf-8"))
+    sheet.write(0, 7, "系统地址".decode("utf-8"))
+    sheet.write(0, 8, "status")
+    sheet.write(0, 9, "id")
+    
+    for m in range(0, len(rows)):
+        row = rows[m]
+        sheet.write(m+1, 0, row["category"])
+        sheet.write(m+1, 1, row["name"])
+        sheet.write(m+1, 2, row["address"])
+        sheet.write(m+1, 3, row["cur_phone"])
+        sheet.write(m+1, 4, row["source"])
+        sheet.write(m+1, 5, row["old_name"].decode("utf-8"))
+        sheet.write(m+1, 6, row["old_phone"].decode("utf-8"))
+        sheet.write(m+1, 7, row["old_address"].decode("utf-8"))
+        sheet.write(m+1, 8, row["status"])
+        sheet.write(m+1, 9, row["id"])
+
+    xls.save(output_xls)
+
+    if len(items) < 100:
+        break
+
 
