@@ -118,15 +118,16 @@ def format_phone(phone):
         tphone = phones[i]
         if tphone[0:4] == "028-":
             tphone = tphone[4:100]
-            real_phone.append(tphone)
         if tphone[0:5] == "(028)":
             tphone = tphone[5:100]
-            real_phone.append(tphone)
         if tphone[0:3] == "028":
             tphone = tphone[3:100]
-            real_phone.append(tphone)
         if tphone[0:1] == "1":
             tphone = tphone[0:11]
+        area_list = ["0816-", "0833-", "0838-", "0817-", "0818-", "0830-", "0831-", "0832-", "0813-", "0826-"]
+        if tphone[0:5] in area_list:
+            tphone = tphone[5:100]
+        if tphone != phones[i]:
             real_phone.append(tphone)
         try:
             if str(int(tphone)) == tphone:
