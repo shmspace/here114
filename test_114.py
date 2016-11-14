@@ -198,6 +198,20 @@ def handler(signum, frame):
 def logger(log):
     os.system("echo %s >> /tmp/test.log" % str(log))
 
+os.system("killall firefox")
+
+signal.signal(signal.SIGALRM, handler)
+
+need_percent = 50
+
+settings = "/tmp/current_id.txt"
+try:
+    handle = open(settings, "r")
+    i = int(handle.read())
+    handle.close()
+except:
+    i = int(raw_input("输入起始id: "))
+
 while 1:
     url = "http://133.37.92.17:8083/besttone/agent/businessMainAction.do?action=hmfc"
     handle = open(settings, "w")
