@@ -144,7 +144,33 @@ def format_phone(phone):
             pass
     return real_phone
 
-
+def find_area(category):
+    code = "SC"
+    if "绵阳" in category:
+        code = "SCMY"
+    if "乐山" in category:
+        code = "SCLS"
+    if "德阳" in category:
+        code = "SCDY"
+    if "南充" in category:
+        code = "SCNC"
+    if "达州" in category:
+        code = "SCDC"
+    if "泸州" in category:
+        code = "SCLZ"
+    if "宜宾" in category:
+        code = "SCYB"
+    if "内江" in category:
+        code = "SCNJ"
+    if "资阳" in category:
+        code = "SCZY"
+    if "自贡" in category:
+        code = "SCZG"
+    if "眉山" in category:
+        code = "SCMS"
+    if "广安" in category:
+        code = "SCGA"
+    return code
 
 def find_item_from_server(from_id):
     server_url = "http://123.207.1.180:8080"
