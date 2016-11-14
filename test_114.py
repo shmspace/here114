@@ -155,29 +155,29 @@ def format_phone(phone):
 
 def find_area(category):
     code = "SC"
-    if "绵阳" in category:
+    if u"绵阳" in category:
         code = "SCMY"
-    if "乐山" in category:
+    if u"乐山" in category:
         code = "SCLS"
-    if "德阳" in category:
+    if u"德阳" in category:
         code = "SCDY"
-    if "南充" in category:
+    if u"南充" in category:
         code = "SCNC"
-    if "达州" in category:
+    if u"达州" in category:
         code = "SCDC"
-    if "泸州" in category:
+    if u"泸州" in category:
         code = "SCLZ"
-    if "宜宾" in category:
+    if u"宜宾" in category:
         code = "SCYB"
-    if "内江" in category:
+    if u"内江" in category:
         code = "SCNJ"
-    if "资阳" in category:
+    if u"资阳" in category:
         code = "SCZY"
-    if "自贡" in category:
+    if u"自贡" in category:
         code = "SCZG"
-    if "眉山" in category:
+    if u"眉山" in category:
         code = "SCMS"
-    if "广安" in category:
+    if u"广安" in category:
         code = "SCGA"
     return code
 
