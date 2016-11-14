@@ -46,6 +46,10 @@ class Pager(object):
             address = self.br.find_element_by_xpath("id('A4')").text
         return name.encode("utf-8"), phone, address.encode("utf-8")
 
+    def select_by_value(code):
+        select_el = self.br.find_element_by_xpath("//select[@name='area_code']/option[@value='"+ code +"']")
+        select_el.click()
+
     def check_name(self, old_name, name):
         all_num = len(name)
         check_num = 0
