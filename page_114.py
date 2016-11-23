@@ -17,6 +17,7 @@ import json
 
 ROOT_DIR = os.getcwd()
 
+
 class Pager(object):
     def __init__(self):
         pass
@@ -196,7 +197,7 @@ def handler(signum, frame):
     raise SystemExit("exit.....")
 
 def logger(log):
-    os.system("echo %s >> /tmp/test.log" % str(log))
+    os.system("echo %s >> /home/aaoo/114_log/test.log" % str(log))
 
 os.system("killall firefox")
 
@@ -204,7 +205,7 @@ signal.signal(signal.SIGALRM, handler)
 
 need_percent = 50
 
-settings = "/tmp/current_id.txt"
+settings = "/home/aaoo/114_log/current_id.txt"
 try:
     handle = open(settings, "r")
     i = int(handle.read())
