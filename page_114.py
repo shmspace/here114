@@ -136,14 +136,17 @@ def format_phone(phone):
             tphone = tphone[0:11]
 
         area_list = ["0816-", "0833-", "0838-", "0817-", "0818-", "0830-", "0831-", "0832-", "0813-", "0826-"]
+        area_list = area_list + ["0837-", "0827-", "0839-", "0836-", "0812-", "0825-", "0834-", "0835-"]
         if tphone[0:5] in area_list:
             tphone = tphone[5:100]
 
         area_list = ["(0816)", "(0833)", "(0838)", "(0817)", "(0818)", "(0830)", "(0831)", "(0832)", "(0813)", "(0826)"]
+        area_list = area_list + ["(0837)", "(0827)", "(0839)", "(0836)", "(0812)", "(0825)", "(0834)", "(0835)"]
         if tphone[0:6] in area_list:
             tphone = tphone[6:100]
 
         area_list = ["0816", "0833", "0838", "0817", "0818", "0830", "0831", "0832", "0813", "0826"]
+        area_list = area_list + ["0837", "0827", "0839", "0836", "0812", "0825", "0834", "0835"]
         if tphone[0:4] in area_list:
             tphone = tphone[4:100]
 
@@ -180,6 +183,22 @@ def find_area(category):
         code = "SCMS"
     if u"广安" in category:
         code = "SCGA"
+    if u"阿坝" in category:
+        code = "SCAB"
+    if u"巴中" in category:
+        code = "SCBZ"
+    if u"广元" in category:
+        code = "SCGY"
+    if u"甘孜" in category:
+        code = "SCGZ"
+    if u"攀枝花" in category:
+        code = "SCPZ"
+    if u"遂宁" in category:
+        code = "SCSN"
+    if u"凉山" in category:
+        code = "SCXC"
+    if u"雅安" in category:
+        code = "SCYA"
     return code
 
 def find_item_from_server(from_id):
